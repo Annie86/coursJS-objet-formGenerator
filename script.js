@@ -4,6 +4,9 @@
 function form() {
 	this.name = 'my first form';
 	this.questions = [];
+	this.addQuestion = function(question) {
+		this.questions.push(question);
+	};
 }
 
 function question() {
@@ -16,12 +19,15 @@ function answer() {
 	this.text;
 }
 
+	// instance of form
 var myForm = new form();
 
+	// change form name
 function changeFormName(){
 	myForm.name = $(this).val();
 }
 
+	// initialisation function
 function init() {
 
 	$('#debug').click(function() {
@@ -31,6 +37,13 @@ function init() {
 	$('#formName')
 		.keyup(changeFormName)
 		.val(myForm.name);
+
+	$('#addQuestion').click(function () {
+		var myQuestion =  new question();
+		myQuestion.text = $('#questionText').val();
+		myQuestion.type = $('#questionType').val();
+		myForm.addQuestion(myQuestion);
+	});
 
 }
 
