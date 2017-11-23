@@ -1,17 +1,17 @@
 
 	// javascript objects for the form, questions and answers
 
-function form() {
-	this.name = 'my first form';
+function form(name) {
+	this.name = name;
 	this.questions = [];
 	this.addQuestion = function(question) {
 		this.questions.push(question);
 	};
 }
 
-function question() {
-	this.text;
-	this.type;
+function question(text, type) {
+	this.text = text;
+	this.type = type;
 	this.answers = [];
 }
 
@@ -20,7 +20,7 @@ function answer() {
 }
 
 	// instance of form
-var myForm = new form();
+var myForm = new form('my first form');
 
 	// change form name
 function changeFormName(){
@@ -39,10 +39,7 @@ function init() {
 		.val(myForm.name);
 
 	$('#addQuestion').click(function () {
-		var myQuestion =  new question();
-		myQuestion.text = $('#questionText').val();
-		myQuestion.type = $('#questionType').val();
-		myForm.addQuestion(myQuestion);
+		myForm.addQuestion(new question($('#questionText').val(), $('#questionType').val()));
 	});
 
 }
