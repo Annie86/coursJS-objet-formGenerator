@@ -76,15 +76,19 @@ function addAnswer(questionId) {
 }
 
 function displayForm() {
+	var editMode = $('#editMode:checked').val();
+
 	var HTML = '';
 
 	for( i = 0 ; i < myForm.questions.length ; i++ ) {
 		var thisQuestion = myForm.questions[i];
 		HTML += '<h4>'
-			+ htmlEntities(thisQuestion.text)
-			+ '<input type="button" onclick="removeQuestion('+i+')" value="supprimer"/>'
-			+ '<input type="button" onclick="myForm.questions['+i+'].toggleType();displayForm();" value="toggle type"/>'
-			+ '</h4>';
+			+ htmlEntities(thisQuestion.text);
+			if ( editMode ) {
+				HTML += '<input type="button" onclick="removeQuestion('+i+')" value="supprimer"/>'
+				+ '<input type="button" onclick="myForm.questions['+i+'].toggleType();displayForm();" value="toggle type"/>';
+			}
+			HTML += '</h4>';
 
 		for ( j = 0 ; j < myForm.questions[i].answers.length ; j++ ) {
 			HTML += '<div>'
@@ -93,11 +97,17 @@ function displayForm() {
 				+ '</div>';
 		}
 
-		HTML += '<div><input type="text" id="answerText'+i+'">'
-			+ '<input type="button" onclick="addAnswer('+i+');" value="add answer"></div>'
-			+ '<hr>';
+		if ( editMode ) {
+			HTML += '<div><input type="text" id="answerText'+i+'">'
+				+ '<input type="button" onclick="addAnswer('+i+');" value="add answer"></div>';
+		}
+		HTML += '<hr>';
 	}
 
 	$('#formContent').html(HTML);
+
+	$('#editMode').click(function () {
+		displayForm();
+	});
 }
 
