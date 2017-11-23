@@ -13,6 +13,9 @@ function question(text, type) {
 	this.text = text;
 	this.type = type;
 	this.answers = [];
+	this.toggleType = function () {
+		this.type = this.type === 'radio' ? 'checkbox' : 'radio';
+	}
 }
 
 function answer(text) {
@@ -80,6 +83,7 @@ function displayForm() {
 		HTML += '<h4>'
 			+ htmlEntities(thisQuestion.text)
 			+ '<input type="button" onclick="removeQuestion('+i+')" value="supprimer"/>'
+			+ '<input type="button" onclick="myForm.questions['+i+'].toggleType();displayForm();" value="toggle type"/>'
 			+ '</h4>';
 
 		for ( j = 0 ; j < myForm.questions[i].answers.length ; j++ ) {
