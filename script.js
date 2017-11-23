@@ -69,6 +69,7 @@ function htmlEntities(str) {
 
 function addAnswer(questionId) {
 	myForm.questions[questionId].answers.push(new answer($('#answerText'+questionId).val()));
+	displayForm();
 }
 
 function displayForm() {
@@ -79,9 +80,17 @@ function displayForm() {
 		HTML += '<h4>'
 			+ htmlEntities(thisQuestion.text)
 			+ '<input type="button" onclick="removeQuestion('+i+')" value="supprimer"/>'
-			+ '<div><input type="text" id="answerText'+i+'">'
+			+ '</h4>';
+
+		for ( j = 0 ; j < myForm.questions[i].answers.length ; j++ ) {
+			HTML += '<div>'
+				+ '<input type="'+myForm.questions[i].type+'">'
+				+ myForm.questions[i].answers[j].text
+				+ '</div>';
+		}
+
+		HTML += '<div><input type="text" id="answerText'+i+'">'
 			+ '<input type="button" onclick="addAnswer('+i+');" value="add answer"></div>'
-			+ '</h4>'
 			+ '<hr>';
 	}
 
