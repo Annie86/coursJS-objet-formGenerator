@@ -58,12 +58,24 @@ $(init);
 
 	// display the form inside formContent
 
+function removeQuestion(questionId) {
+    myForm.questions.splice(questionId, 1);
+    displayForm();
+}
+
+function htmlEntities(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 function displayForm() {
 	var HTML = '';
 
 	for( i = 0 ; i < myForm.questions.length ; i++ ) {
 		var thisQuestion = myForm.questions[i];
-		HTML += '<h4>'+thisQuestion.text+'</h4>';
+		HTML += '<h4>';
+		HTML += htmlEntities(thisQuestion.text);
+		HTML += '<input type="button" onclick="removeQuestion('+i+')" value="supprimer"/>';
+		HTML += '</h4>';
 		HTML += '<hr>';
 	}
 
