@@ -88,7 +88,7 @@ function displayForm() {
 
 		for ( j = 0 ; j < myForm.questions[i].answers.length ; j++ ) {
 			HTML += '<div>'
-				+ '<input type="'+myForm.questions[i].type+'">'
+				+ '<input type="'+myForm.questions[i].type+'" name="answer'+i+'">'
 				+ myForm.questions[i].answers[j].text
 				+ '</div>';
 		}
