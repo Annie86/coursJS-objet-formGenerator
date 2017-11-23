@@ -15,8 +15,8 @@ function question(text, type) {
 	this.answers = [];
 }
 
-function answer() {
-	this.text;
+function answer(text) {
+	this.text = text;
 }
 
 	// instance of form
@@ -67,16 +67,22 @@ function htmlEntities(str) {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+function addAnswer(questionId) {
+	myForm.questions[questionId].answers.push(new answer($('#answerText'+questionId).val()));
+}
+
 function displayForm() {
 	var HTML = '';
 
 	for( i = 0 ; i < myForm.questions.length ; i++ ) {
 		var thisQuestion = myForm.questions[i];
-		HTML += '<h4>';
-		HTML += htmlEntities(thisQuestion.text);
-		HTML += '<input type="button" onclick="removeQuestion('+i+')" value="supprimer"/>';
-		HTML += '</h4>';
-		HTML += '<hr>';
+		HTML += '<h4>'
+			+ htmlEntities(thisQuestion.text)
+			+ '<input type="button" onclick="removeQuestion('+i+')" value="supprimer"/>'
+			+ '<div><input type="text" id="answerText'+i+'">'
+			+ '<input type="button" onclick="addAnswer('+i+');" value="add answer"></div>'
+			+ '</h4>'
+			+ '<hr>';
 	}
 
 	$('#formContent').html(HTML);
